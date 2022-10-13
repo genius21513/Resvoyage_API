@@ -1,0 +1,2847 @@
+{
+	"info": {
+		"_postman_id": "ecab21b1-3933-44ff-a02b-2be64cb9f916",
+		"name": "Resvoyage API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19336461"
+	},
+	"item": [
+		{
+			"name": "1. Basic B2C Workflow",
+			"item": [
+				{
+					"name": "1 - Public Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.Token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/public/token?clientname=travelbooking",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"token"
+							],
+							"query": [
+								{
+									"key": "clientname",
+									"value": "travelbooking"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Search - Air",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=PAR&DepartureDate1=2020-09-17&Adults=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "PAR"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2020-09-17"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Add to Shopping Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ItemId\": \"7d715160-2600-4f61-a115-b1171f14b123\",\n    \"SessionId\": \"e110f15e-80d8-4af9-9193-c16b7bfd96df\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/air/add",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"air",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "air_cart_item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2IiwidHlwIjoiSldUIn0.eyJuYmYiOjE0NTQ1OTU1MTksImV4cCI6MTQ1NDU5NzMxOSwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlRob21hbGV4IEIyQyIsIkNsaWVudElkIjoiODEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCMkMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjE2OTQ0IiwiYXVkIjoicmVzdm95YWdlIn0.mAF_7HxDQNBSGV8Y_6b_S0ysHqZGM4ppt9OKlvli9TezzzPbgBrfuJw_tKbecan8LTw0hIkO6G4miCJV9E3WtU4LENL1yazimA3BuX2vhpz8xmfNyQ7Xkuh0M-cklBJGZUyQQP9UGW3vrdjg3BzgJ2ORY7wSnFIyEO9vwEALv-tFiUXJM9YUoC0Q6RSGK92UFgWTYRS4Q54L1clBLqcZ_nyc1HQvGLbH3OSp8fBpeaHNlNQisr5LIqhmSH8Iq7zOX16VNL57zct7qzEELiyZZGRste6-8aUfvJxtcruewgD4BXiauDF8p8pPLEfhwG-QVU935mEGveLS3xHMbqluwQ",
+										"name": "Authorization"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type"
+									},
+									{
+										"key": "Cache-Control",
+										"name": "Cache-Control",
+										"value": "no-cache"
+									},
+									{
+										"key": "Postman-Token",
+										"name": "Postman-Token",
+										"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ItineraryId\": \"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\n    \"SessionId\": \"222a65d8-6a77-40c0-b29a-343e40339b7c\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:35370/api/v1/cart/air/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "35370",
+									"path": [
+										"api",
+										"v1",
+										"cart",
+										"air",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "2501",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 03 Mar 2016 21:21:10 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET",
+									"name": "X-Powered-By",
+									"description": ""
+								},
+								{
+									"key": "X-SourceFiles",
+									"value": "=?UTF-8?B?QzpcZGV2ZWxvcG1lbnRcdGhvbWFsZXhccmVzdm95YWdlXFJlc3ZveWFnZS5SRVNUX0FQSVxhcGlcdjFcY2FydFxhaXJcYWRk?=",
+									"name": "X-SourceFiles",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"SessionId\":\"222a65d8-6a77-40c0-b29a-343e40339b7c\",\"ShoppingCart\":{\"Air\":{\"AirItinerary\":{\"DirectionInd\":\"Circle\",\"OriginDestinationOptions\":[{\"SectorSequence\":1,\"FlightSegments\":[{\"RouteNumber\":\"DL1994\",\"FlightNumber\":\"1994\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"02:55:00\",\"DepartureDate\":\"2016-04-12T17:20:00\",\"ArrivalDate\":\"2016-04-12T20:15:00\",\"DepartureAirport\":\"MIA\",\"ArrivalAirport\":\"JFK\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"New York-John F Kennedy, NY, United States\",\"DepartureAirportName\":\"Miami-Miami Intl, FL, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"02:55:00\"},{\"SectorSequence\":2,\"FlightSegments\":[{\"RouteNumber\":\"DL2313\",\"FlightNumber\":\"2313\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"03:20:00\",\"DepartureDate\":\"2016-04-22T15:00:00\",\"ArrivalDate\":\"2016-04-22T18:20:00\",\"DepartureAirport\":\"JFK\",\"ArrivalAirport\":\"MIA\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"Miami-Miami Intl, FL, United States\",\"DepartureAirportName\":\"New York-John F Kennedy, NY, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"03:20:00\"}]},\"AirItineraryPricingInfo\":{\"TotalPrice\":284.20,\"BasePrice\":141.63,\"Tax\":42.57,\"Markup\":0.0,\"ServiceFee\":100.00,\"Discount\":0.0,\"CurrencyCode\":\"USD\",\"PTC_FareBreakdowns\":[{\"BasePriceFromItinerary\":191.63,\"BasePrice\":141.63,\"Markup\":0.0,\"Discount\":0.0,\"ServiceFee\":100.00,\"Tax\":42.57,\"TotalPrice\":284.20,\"PassengerCount\":1,\"PassengerType\":\"ADT\"}],\"PricingSource\":null,\"IsNegotiatedPrice\":false},\"Id\":\"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\"PolicyType\":null},\"Passengers\":[{\"IndexInSequence\":0,\"Title\":null,\"TypeCode\":\"ADT\",\"FirstName\":null,\"MiddleName\":null,\"LastName\":null,\"Email\":null,\"CountryCode\":null,\"Phone\":null,\"PhoneCode\":null,\"SkypeID\":null,\"LoyalityProgram\":null,\"MealsNSeatReq\":null,\"Gender\":null,\"DateOfBirthString\":null,\"PaymentInfoObject\":null,\"BaggagePiecesQty\":0,\"Gen\":null,\"UserRole\":null,\"Id\":0}],\"NeedJustification\":false,\"PersonalCreditCards\":null,\"AvailablePaymentOptions\":[{\"TravelType\":\"AIR\",\"PaymentOptions\":[\"CallMe\",\"CorpCreditCard\",\"ProfileCardType\",\"B2BInvoiceCorporation\"]}]}}"
+						},
+						{
+							"name": "air_cart_item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2IiwidHlwIjoiSldUIn0.eyJuYmYiOjE0NTQ1OTU1MTksImV4cCI6MTQ1NDU5NzMxOSwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlRob21hbGV4IEIyQyIsIkNsaWVudElkIjoiODEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCMkMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjE2OTQ0IiwiYXVkIjoicmVzdm95YWdlIn0.mAF_7HxDQNBSGV8Y_6b_S0ysHqZGM4ppt9OKlvli9TezzzPbgBrfuJw_tKbecan8LTw0hIkO6G4miCJV9E3WtU4LENL1yazimA3BuX2vhpz8xmfNyQ7Xkuh0M-cklBJGZUyQQP9UGW3vrdjg3BzgJ2ORY7wSnFIyEO9vwEALv-tFiUXJM9YUoC0Q6RSGK92UFgWTYRS4Q54L1clBLqcZ_nyc1HQvGLbH3OSp8fBpeaHNlNQisr5LIqhmSH8Iq7zOX16VNL57zct7qzEELiyZZGRste6-8aUfvJxtcruewgD4BXiauDF8p8pPLEfhwG-QVU935mEGveLS3xHMbqluwQ",
+										"name": "Authorization"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type"
+									},
+									{
+										"key": "Cache-Control",
+										"name": "Cache-Control",
+										"value": "no-cache"
+									},
+									{
+										"key": "Postman-Token",
+										"name": "Postman-Token",
+										"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ItineraryId\": \"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\n    \"SessionId\": \"222a65d8-6a77-40c0-b29a-343e40339b7c\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:35370/api/v1/cart/air/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "35370",
+									"path": [
+										"api",
+										"v1",
+										"cart",
+										"air",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "2501",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 03 Mar 2016 21:21:10 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET",
+									"name": "X-Powered-By",
+									"description": ""
+								},
+								{
+									"key": "X-SourceFiles",
+									"value": "=?UTF-8?B?QzpcZGV2ZWxvcG1lbnRcdGhvbWFsZXhccmVzdm95YWdlXFJlc3ZveWFnZS5SRVNUX0FQSVxhcGlcdjFcY2FydFxhaXJcYWRk?=",
+									"name": "X-SourceFiles",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"SessionId\":\"222a65d8-6a77-40c0-b29a-343e40339b7c\",\"ShoppingCart\":{\"Air\":{\"AirItinerary\":{\"DirectionInd\":\"Circle\",\"OriginDestinationOptions\":[{\"SectorSequence\":1,\"FlightSegments\":[{\"RouteNumber\":\"DL1994\",\"FlightNumber\":\"1994\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"02:55:00\",\"DepartureDate\":\"2016-04-12T17:20:00\",\"ArrivalDate\":\"2016-04-12T20:15:00\",\"DepartureAirport\":\"MIA\",\"ArrivalAirport\":\"JFK\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"New York-John F Kennedy, NY, United States\",\"DepartureAirportName\":\"Miami-Miami Intl, FL, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"02:55:00\"},{\"SectorSequence\":2,\"FlightSegments\":[{\"RouteNumber\":\"DL2313\",\"FlightNumber\":\"2313\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"03:20:00\",\"DepartureDate\":\"2016-04-22T15:00:00\",\"ArrivalDate\":\"2016-04-22T18:20:00\",\"DepartureAirport\":\"JFK\",\"ArrivalAirport\":\"MIA\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"Miami-Miami Intl, FL, United States\",\"DepartureAirportName\":\"New York-John F Kennedy, NY, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"03:20:00\"}]},\"AirItineraryPricingInfo\":{\"TotalPrice\":284.20,\"BasePrice\":141.63,\"Tax\":42.57,\"Markup\":0.0,\"ServiceFee\":100.00,\"Discount\":0.0,\"CurrencyCode\":\"USD\",\"PTC_FareBreakdowns\":[{\"BasePriceFromItinerary\":191.63,\"BasePrice\":141.63,\"Markup\":0.0,\"Discount\":0.0,\"ServiceFee\":100.00,\"Tax\":42.57,\"TotalPrice\":284.20,\"PassengerCount\":1,\"PassengerType\":\"ADT\"}],\"PricingSource\":null,\"IsNegotiatedPrice\":false},\"Id\":\"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\"PolicyType\":null},\"Passengers\":[{\"IndexInSequence\":0,\"Title\":null,\"TypeCode\":\"ADT\",\"FirstName\":null,\"MiddleName\":null,\"LastName\":null,\"Email\":null,\"CountryCode\":null,\"Phone\":null,\"PhoneCode\":null,\"SkypeID\":null,\"LoyalityProgram\":null,\"MealsNSeatReq\":null,\"Gender\":null,\"DateOfBirthString\":null,\"PaymentInfoObject\":null,\"BaggagePiecesQty\":0,\"Gen\":null,\"UserRole\":null,\"Id\":0}],\"NeedJustification\":false,\"PersonalCreditCards\":null,\"AvailablePaymentOptions\":[{\"TravelType\":\"AIR\",\"PaymentOptions\":[\"CallMe\",\"CorpCreditCard\",\"ProfileCardType\",\"B2BInvoiceCorporation\"]}]}}"
+						}
+					]
+				},
+				{
+					"name": "4 - Confirm Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SessionId\": \"30c7f612-b98a-4e21-ad9e-cdbd0958fbcf\",\n    \"NotesForAgent\": \"\",\n    \"PurchaseInsurance\": false,\n    \"CubaTravelReasonCode\": \"INFOR\",\n    \"Travellers\": [\n    {\n      \"IndexInSequence\": 0,\n      \"Title\": \"Mr\",\n      \"TypeCode\": \"ADT\",\n      \"FirstName\": \"Zoran\",\n      \"MiddleName\": \"Vukan Mila\",\n      \"LastName\": \"Protic\",\n      \"Email\": \"zoranpro@gmail.com\",\n      \"CountryCode\": null,\n      \"Phone\": \"123121231\",\n      \"PhoneCode\": null,\n      \"SkypeID\": null,\n      \"MealsNSeatReq\": null,\n      \"Gender\": true,\n      \"DateOfBirthString\": \"1982-04-04T09:42:53.998Z\",\n      \"PaymentInfoObject\": null,\n      \"BaggagePiecesQty\": 0,\n      \"LoyalityProgram\": null,\n      \"PassportExpDate\": \"2020-01-05\",\n      \"PassportIssuingDate\": \"2010-01-05\",\n      \"PassportNo\": \"D009221\",\n      \"PassportIssuingCountry\": \"SRB\",\n      \"CountryOfNationality\": \"SRB\"\n    }\n  ],\n    \"PaymentDetails\": [{\n        \"TravelType\": \"AIR\",\n        \"CorporateCreditCard\":false,\n        \"PaymentOption\":\"CreditCard\",\n        \"Address\":{\n            \"CountryCode\":\"US\",\n            \"CountryName\":\"USA\",\n            \"State\": \"Maryland\",\n            \"RegionName\":\"Maryland\",\n            \"ZIP\":\"12345\",\n            \"CityName\":\"Miami\",\n            \"StreetAddress\":\"Zarka Pucara\"\n        },\n        \"CardInfo\":{\n            \"CardholderName\":\"Name On Card\",\n            \"CardType\":\"VI\",\n            \"CardTypeCode\":\"VI\",\n            \"CardNumber\":\"4111111111111111\",\n            \"ExpirationMonth\":\"1\",\n            \"ExpirationYear\":\"2019\",\n            \"CVV\":\"123\",\n            \"BankName\":null,\n            \"BankPhone\":\"+93123123\"\n        }\n    }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/book",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"book"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1.1 Deep Link Workflow",
+			"item": [
+				{
+					"name": "1 - Public Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.Token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/public/token?clientname=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"token"
+							],
+							"query": [
+								{
+									"key": "clientname",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Search - One way with DeepLink",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=CHI&DepartureDate1=2018-09-12&Adults=1&DeepLinkBaseUrl=https://testsite.com",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "CHI"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2018-09-12"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "DeepLinkBaseUrl",
+									"value": "https://testsite.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Search - Round Trip with DeepLink",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=LON&from2=LON&to2=MIA&DepartureDate1=2017-09-12&DepartureDate2=2017-10-12&Adults=1&Children=1&Infants=1&FlightClass=Business&DeepLinkBaseUrl=http://localhost:88",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "LON"
+								},
+								{
+									"key": "from2",
+									"value": "LON"
+								},
+								{
+									"key": "to2",
+									"value": "MIA"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2017-09-12"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2017-10-12"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "Children",
+									"value": "1"
+								},
+								{
+									"key": "Infants",
+									"value": "1"
+								},
+								{
+									"key": "FlightClass",
+									"value": "Business"
+								},
+								{
+									"key": "DeepLinkBaseUrl",
+									"value": "http://localhost:88"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1v2 - Search Flight with Meta",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/meta/momondo/search?from1=SEA&to1=MAD&DepartureDate1=2019-10-15&from2=MAD&to2=SEA&DepartureDate2=2019-11-12&Adults=1&meta=jetradar&DeepLinkBaseUrl=https://testsite.com",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"meta",
+								"momondo",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "SEA"
+								},
+								{
+									"key": "to1",
+									"value": "MAD"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2019-10-15"
+								},
+								{
+									"key": "from2",
+									"value": "MAD"
+								},
+								{
+									"key": "to2",
+									"value": "SEA"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2019-11-12"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "meta",
+									"value": "jetradar"
+								},
+								{
+									"key": "DeepLinkBaseUrl",
+									"value": "https://testsite.com"
+								}
+							]
+						},
+						"description": "This request should be used by MetaEngines. It is a stateless request and can't be used for booking a flight.\nIt should be used ONLY with a property DeepLinkUrl, which should be landing URL for the Meta engine. This request has Basic Auth."
+					},
+					"response": []
+				},
+				{
+					"name": "2v2 -AddToCart from Meta Engine",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/cart/add?From1=SEA&To1=MAD&DepartureDate1=2018-10-15&From2=MAD&To2=SEA&DepartureDate2=2018-11-12&Adults=1&Meta=Momondo&FlightClass=NoPreference&flightinfo=DE_2033_G_18*LH_1122_V_17*LH_1121_S_6*DE_2032_G_14",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"cart",
+								"add"
+							],
+							"query": [
+								{
+									"key": "From1",
+									"value": "SEA"
+								},
+								{
+									"key": "To1",
+									"value": "MAD"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2018-10-15"
+								},
+								{
+									"key": "From2",
+									"value": "MAD"
+								},
+								{
+									"key": "To2",
+									"value": "SEA"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2018-11-12"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "Meta",
+									"value": "Momondo"
+								},
+								{
+									"key": "FlightClass",
+									"value": "NoPreference"
+								},
+								{
+									"key": "flightinfo",
+									"value": "DE_2033_G_18*LH_1122_V_17*LH_1121_S_6*DE_2032_G_14"
+								}
+							]
+						},
+						"description": "This request is used for adding selected flight from a metaengine to the shopping cart."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Basic B2B Workflow",
+			"item": [
+				{
+					"name": "1 - Access Token - Employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.Token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ztraveller\",\n    \"password\": \"test12\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Search - Air",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=JFK&DepartureDate1=2016-09-12&from2=JFK&to2=MIA&DepartureDate2=2016-09-22&Adults=1&TripReasonId=41&TripName=testing",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "JFK"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2016-09-12"
+								},
+								{
+									"key": "from2",
+									"value": "JFK"
+								},
+								{
+									"key": "to2",
+									"value": "MIA"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2016-09-22"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "TripReasonId",
+									"value": "41"
+								},
+								{
+									"key": "TripName",
+									"value": "testing"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Add to Shopping Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ItemId\": \"c443a06a-5fde-41f4-a478-742fb85ddba3\",\n    \"SessionId\": \"ae4caad4-fdbf-4998-a6b2-370fad5054d5\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/air/add",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"air",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "air_cart_item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2IiwidHlwIjoiSldUIn0.eyJuYmYiOjE0NTQ1OTU1MTksImV4cCI6MTQ1NDU5NzMxOSwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlRob21hbGV4IEIyQyIsIkNsaWVudElkIjoiODEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCMkMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjE2OTQ0IiwiYXVkIjoicmVzdm95YWdlIn0.mAF_7HxDQNBSGV8Y_6b_S0ysHqZGM4ppt9OKlvli9TezzzPbgBrfuJw_tKbecan8LTw0hIkO6G4miCJV9E3WtU4LENL1yazimA3BuX2vhpz8xmfNyQ7Xkuh0M-cklBJGZUyQQP9UGW3vrdjg3BzgJ2ORY7wSnFIyEO9vwEALv-tFiUXJM9YUoC0Q6RSGK92UFgWTYRS4Q54L1clBLqcZ_nyc1HQvGLbH3OSp8fBpeaHNlNQisr5LIqhmSH8Iq7zOX16VNL57zct7qzEELiyZZGRste6-8aUfvJxtcruewgD4BXiauDF8p8pPLEfhwG-QVU935mEGveLS3xHMbqluwQ",
+										"name": "Authorization"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type"
+									},
+									{
+										"key": "Cache-Control",
+										"name": "Cache-Control",
+										"value": "no-cache"
+									},
+									{
+										"key": "Postman-Token",
+										"name": "Postman-Token",
+										"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ItineraryId\": \"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\n    \"SessionId\": \"222a65d8-6a77-40c0-b29a-343e40339b7c\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:35370/api/v1/cart/air/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "35370",
+									"path": [
+										"api",
+										"v1",
+										"cart",
+										"air",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "2501",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 03 Mar 2016 21:21:10 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET",
+									"name": "X-Powered-By",
+									"description": ""
+								},
+								{
+									"key": "X-SourceFiles",
+									"value": "=?UTF-8?B?QzpcZGV2ZWxvcG1lbnRcdGhvbWFsZXhccmVzdm95YWdlXFJlc3ZveWFnZS5SRVNUX0FQSVxhcGlcdjFcY2FydFxhaXJcYWRk?=",
+									"name": "X-SourceFiles",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"SessionId\":\"222a65d8-6a77-40c0-b29a-343e40339b7c\",\"ShoppingCart\":{\"Air\":{\"AirItinerary\":{\"DirectionInd\":\"Circle\",\"OriginDestinationOptions\":[{\"SectorSequence\":1,\"FlightSegments\":[{\"RouteNumber\":\"DL1994\",\"FlightNumber\":\"1994\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"02:55:00\",\"DepartureDate\":\"2016-04-12T17:20:00\",\"ArrivalDate\":\"2016-04-12T20:15:00\",\"DepartureAirport\":\"MIA\",\"ArrivalAirport\":\"JFK\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"New York-John F Kennedy, NY, United States\",\"DepartureAirportName\":\"Miami-Miami Intl, FL, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"02:55:00\"},{\"SectorSequence\":2,\"FlightSegments\":[{\"RouteNumber\":\"DL2313\",\"FlightNumber\":\"2313\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"03:20:00\",\"DepartureDate\":\"2016-04-22T15:00:00\",\"ArrivalDate\":\"2016-04-22T18:20:00\",\"DepartureAirport\":\"JFK\",\"ArrivalAirport\":\"MIA\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"Miami-Miami Intl, FL, United States\",\"DepartureAirportName\":\"New York-John F Kennedy, NY, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"03:20:00\"}]},\"AirItineraryPricingInfo\":{\"TotalPrice\":284.20,\"BasePrice\":141.63,\"Tax\":42.57,\"Markup\":0.0,\"ServiceFee\":100.00,\"Discount\":0.0,\"CurrencyCode\":\"USD\",\"PTC_FareBreakdowns\":[{\"BasePriceFromItinerary\":191.63,\"BasePrice\":141.63,\"Markup\":0.0,\"Discount\":0.0,\"ServiceFee\":100.00,\"Tax\":42.57,\"TotalPrice\":284.20,\"PassengerCount\":1,\"PassengerType\":\"ADT\"}],\"PricingSource\":null,\"IsNegotiatedPrice\":false},\"Id\":\"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\"PolicyType\":null},\"Passengers\":[{\"IndexInSequence\":0,\"Title\":null,\"TypeCode\":\"ADT\",\"FirstName\":null,\"MiddleName\":null,\"LastName\":null,\"Email\":null,\"CountryCode\":null,\"Phone\":null,\"PhoneCode\":null,\"SkypeID\":null,\"LoyalityProgram\":null,\"MealsNSeatReq\":null,\"Gender\":null,\"DateOfBirthString\":null,\"PaymentInfoObject\":null,\"BaggagePiecesQty\":0,\"Gen\":null,\"UserRole\":null,\"Id\":0}],\"NeedJustification\":false,\"PersonalCreditCards\":null,\"AvailablePaymentOptions\":[{\"TravelType\":\"AIR\",\"PaymentOptions\":[\"CallMe\",\"CorpCreditCard\",\"ProfileCardType\",\"B2BInvoiceCorporation\"]}]}}"
+						}
+					]
+				},
+				{
+					"name": "4 - Confirm Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SessionId\": \"ae4caad4-fdbf-4998-a6b2-370fad5054d5\",\n    \"NotesForAgent\": \"\",\n    \"Travellers\": [\n    {\n      \"Id\": \"317e1594-070e-49bd-8314-aa8c32455530\",\n      \"IndexInSequence\": 0,\n      \"Title\": \"Mr\",\n      \"TypeCode\": \"ADT\",\n      \"FirstName\": \"Zoran\",\n      \"MiddleName\": null,\n      \"LastName\": \"Protic\",\n      \"Email\": \"zoranpro@gmail.com\",\n      \"CountryCode\": null,\n      \"Phone\": \"123121231\",\n      \"PhoneCode\": null,\n      \"SkypeID\": null,\n      \"LoyalityProgram\": null,\n      \"MealsNSeatReq\": null,\n      \"Gender\": null,\n      \"DateOfBirthString\": \"1982-04-04T09:42:53.998Z\",\n      \"PaymentInfoObject\": null,\n      \"BaggagePiecesQty\": 0\n    }\n  ],\n    \"PaymentDetails\": [{\n        \"TravelType\": \"AIR\",\n        \"CorporateCreditCard\":false,\n        \"PaymentOption\":\"CreditCard\",\n        \"Address\":{\n            \"CountryCode\":\"RS\",\n            \"CountryName\":\"Serbia\",\n            \"RegionName\":\"Sumadija\",\n            \"ZIP\":\"12345\",\n            \"CityName\":\"Beograd\",\n            \"StreetAddress\":\"Zarka Pucara\"\n        },\n        \"CardInfo\":{\n            \"CardholderName\":\"Name On Card\",\n            \"CardType\":\"VI\",\n            \"CardTypeCode\":\"VI\",\n            \"CardNumber\":\"4111111111111111\",\n            \"ExpirationMonth\":\"1\",\n            \"ExpirationYear\":\"2018\",\n            \"CVV\":\"123\",\n            \"BankName\":\"Bank name\",\n            \"BankPhone\":\"+93123123\"\n        }\n    }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/book",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"book"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Usage of API for Websites which are B2B. B2B worklow is intendent only for registered employees. Every employee is part of Travel Group which has defined policies, rules and other settings."
+		},
+		{
+			"name": "3. Air Module",
+			"item": [
+				{
+					"name": "1 - Airline Search",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/references/airlines?search=ba",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"references",
+								"airlines"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "ba"
+								}
+							]
+						},
+						"description": "Return all airlines based on search criteria"
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Airport/City Search",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/references/airports?search=mia",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"references",
+								"airports"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "mia"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Search - RoundTrip",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=JFK&DepartureDate1=2016-07-12&PreferredTime1=0&from2=JFK&to2=MIA&DepartureDate2=2016-07-22&PreferredTime2=0&Adults=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "JFK"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2016-07-12"
+								},
+								{
+									"key": "PreferredTime1",
+									"value": "0"
+								},
+								{
+									"key": "from2",
+									"value": "JFK"
+								},
+								{
+									"key": "to2",
+									"value": "MIA"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2016-07-22"
+								},
+								{
+									"key": "PreferredTime2",
+									"value": "0"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Search - One way",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=JFK&DepartureDate1=2016-09-12&Adults=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "JFK"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2016-09-12"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Air Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=LON&DepartureDate1=2016-09-12&Adults=1&DeepLinkBaseUrl=http://localhost:88",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "LON"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2016-09-12"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "DeepLinkBaseUrl",
+									"value": "http://localhost:88"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Search -Multi City",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=JFK&DepartureDate1=2016-09-12&from2=JFK&to2=MIA&DepartureDate2=2016-09-22&from3=MIA&to2=WAS&DepartureDate3=2016-10-22&Adults=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "JFK"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2016-09-12"
+								},
+								{
+									"key": "from2",
+									"value": "JFK"
+								},
+								{
+									"key": "to2",
+									"value": "MIA"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2016-09-22"
+								},
+								{
+									"key": "from3",
+									"value": "MIA"
+								},
+								{
+									"key": "to2",
+									"value": "WAS"
+								},
+								{
+									"key": "DepartureDate3",
+									"value": "2016-10-22"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Search - Flexible",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "dbe2ee32-f92c-2006-eb21-dfcb68b3b7a9"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=MIA&to1=JFK&DepartureDate1=2016-09-12&from2=JFK&to2=MIA&DepartureDate2=2016-09-22&Adults=1&FlexibleDates=true&DepartureFlexInterval=days3&DestinationFlexInterval=days3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "MIA"
+								},
+								{
+									"key": "to1",
+									"value": "JFK"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2016-09-12"
+								},
+								{
+									"key": "from2",
+									"value": "JFK"
+								},
+								{
+									"key": "to2",
+									"value": "MIA"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2016-09-22"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "FlexibleDates",
+									"value": "true"
+								},
+								{
+									"key": "DepartureFlexInterval",
+									"value": "days3"
+								},
+								{
+									"key": "DestinationFlexInterval",
+									"value": "days3"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "flexAirSearchResult",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6IlRob21hbGV4IERlbW8iLCJDbGllbnRJZCI6IjYwIiwicm9sZSI6IkIyQyIsImlzcyI6InJlc3ZveWFnZSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzUzNzAiLCJleHAiOjE0NTY4MjU3ODgsIm5iZiI6MTQ1NjgyMzk4OH0.iDhFpFoEnYzSfZuVPHq4w5My2IlJ0WcQRm3ytvGN0Os",
+										"name": "Authorization"
+									},
+									{
+										"key": "Cache-Control",
+										"name": "Cache-Control",
+										"value": "no-cache"
+									},
+									{
+										"key": "Postman-Token",
+										"name": "Postman-Token",
+										"value": "dbe2ee32-f92c-2006-eb21-dfcb68b3b7a9"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:35370/api/v1/air/search?from1=MIA&to1=JFK&DepartureDate1=2016-04-12&PreferredTime1=0&from2=JFK&to2=MIA&DepartureDate2=2016-04-22&PreferredTime2=0&Adults=1&TripReasonId=41&CabinClasses=1&FlexibleDates=true&DepartureFlexInterval=days3&DestinationFlexInterval=days3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "35370",
+									"path": [
+										"api",
+										"v1",
+										"air",
+										"search"
+									],
+									"query": [
+										{
+											"key": "from1",
+											"value": "MIA"
+										},
+										{
+											"key": "to1",
+											"value": "JFK"
+										},
+										{
+											"key": "DepartureDate1",
+											"value": "2016-04-12"
+										},
+										{
+											"key": "PreferredTime1",
+											"value": "0"
+										},
+										{
+											"key": "from2",
+											"value": "JFK"
+										},
+										{
+											"key": "to2",
+											"value": "MIA"
+										},
+										{
+											"key": "DepartureDate2",
+											"value": "2016-04-22"
+										},
+										{
+											"key": "PreferredTime2",
+											"value": "0"
+										},
+										{
+											"key": "Adults",
+											"value": "1"
+										},
+										{
+											"key": "TripReasonId",
+											"value": "41"
+										},
+										{
+											"key": "CabinClasses",
+											"value": "1"
+										},
+										{
+											"key": "FlexibleDates",
+											"value": "true"
+										},
+										{
+											"key": "DepartureFlexInterval",
+											"value": "days3"
+										},
+										{
+											"key": "DestinationFlexInterval",
+											"value": "days3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "8027",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 02 Mar 2016 00:11:22 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET",
+									"name": "X-Powered-By",
+									"description": ""
+								},
+								{
+									"key": "X-SourceFiles",
+									"value": "=?UTF-8?B?QzpcZGV2ZWxvcG1lbnRcdGhvbWFsZXhccmVzdm95YWdlXFJlc3ZveWFnZS5SRVNUX0FQSVxhcGlcdjFcYWlyXHNlYXJjaA==?=",
+									"name": "X-SourceFiles",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"MinInPolicyPrice\":0.0,\"TripReasonId\":41,\"PricedItineraries\":null,\"SessionId\":\"4d7c58a9-d0fc-4918-9eb1-6ee5dc969ae4\",\"MinPrice\":172.20,\"MinBookedCabinPrice\":0.0,\"MaxPrice\":238.20,\"Matrix\":{\"DirectAirlines\":[{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-12T17:20:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-14T12:32:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"}],\"OneStopAirlines\":[],\"TwoStopsAirlines\":[]},\"FlexibleDateFlights\":[{\"DepartureDate\":\"2016-04-09T00:00:00\",\"ReturnAirlines\":[{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-19T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-20T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-21T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-22T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-23T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-24T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-25T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"}]},{\"DepartureDate\":\"2016-04-10T00:00:00\",\"ReturnAirlines\":[{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-19T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-20T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-21T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-22T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-23T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-24T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-25T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"}]},{\"DepartureDate\":\"2016-04-11T00:00:00\",\"ReturnAirlines\":[{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-19T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":238.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-20T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":238.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-21T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":238.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-22T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":238.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-23T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":238.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-24T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":238.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-25T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":238.20,\"Currency\":\"USD\"}]},{\"DepartureDate\":\"2016-04-12T00:00:00\",\"ReturnAirlines\":[{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-19T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-20T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-21T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-22T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-23T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-24T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-25T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"}]},{\"DepartureDate\":\"2016-04-13T00:00:00\",\"ReturnAirlines\":[{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-19T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-20T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-21T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-22T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-23T15:00:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-24T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"DL\",\"Airline\":\"Delta Air Lines\",\"Departure\":\"2016-04-25T11:15:00\",\"HasMultipleAirlines\":false,\"Price\":172.20,\"Currency\":\"USD\"}]},{\"DepartureDate\":\"2016-04-14T00:00:00\",\"ReturnAirlines\":[{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-19T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-20T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-21T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-22T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-23T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-24T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-25T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"}]},{\"DepartureDate\":\"2016-04-15T00:00:00\",\"ReturnAirlines\":[{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-19T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-20T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-21T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-22T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-23T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-24T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"},{\"AirlineCode\":\"AA\",\"Airline\":\"American Airlines\",\"Departure\":\"2016-04-25T13:30:00\",\"HasMultipleAirlines\":false,\"Price\":208.20,\"Currency\":\"USD\"}]}]}"
+						}
+					]
+				},
+				{
+					"name": "4 - Air Rules",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/references/flight/rules?sessionid=90c53a2a-3fcd-4a21-9df3-1e843e00db53&itineraryid=e732d724-e059-4b8a-8d52-5b75d79f08c7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"references",
+								"flight",
+								"rules"
+							],
+							"query": [
+								{
+									"key": "sessionid",
+									"value": "90c53a2a-3fcd-4a21-9df3-1e843e00db53"
+								},
+								{
+									"key": "itineraryid",
+									"value": "e732d724-e059-4b8a-8d52-5b75d79f08c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5 - Seat Map",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/cart/seatmap?sessionId=12ef88b9-ecc1-420c-922b-1afe162fe4c1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"seatmap"
+							],
+							"query": [
+								{
+									"key": "sessionId",
+									"value": "12ef88b9-ecc1-420c-922b-1afe162fe4c1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6 - Add to Shopping Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ItemId\": \"a84d7de2-d7b7-4c75-aa39-d125bf76b226\",\n    \"SessionId\": \"f83b078f-2051-40fd-a21c-f8945751fc48\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/air/add",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"air",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "air_cart_item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2IiwidHlwIjoiSldUIn0.eyJuYmYiOjE0NTQ1OTU1MTksImV4cCI6MTQ1NDU5NzMxOSwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlRob21hbGV4IEIyQyIsIkNsaWVudElkIjoiODEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCMkMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjE2OTQ0IiwiYXVkIjoicmVzdm95YWdlIn0.mAF_7HxDQNBSGV8Y_6b_S0ysHqZGM4ppt9OKlvli9TezzzPbgBrfuJw_tKbecan8LTw0hIkO6G4miCJV9E3WtU4LENL1yazimA3BuX2vhpz8xmfNyQ7Xkuh0M-cklBJGZUyQQP9UGW3vrdjg3BzgJ2ORY7wSnFIyEO9vwEALv-tFiUXJM9YUoC0Q6RSGK92UFgWTYRS4Q54L1clBLqcZ_nyc1HQvGLbH3OSp8fBpeaHNlNQisr5LIqhmSH8Iq7zOX16VNL57zct7qzEELiyZZGRste6-8aUfvJxtcruewgD4BXiauDF8p8pPLEfhwG-QVU935mEGveLS3xHMbqluwQ",
+										"name": "Authorization"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type"
+									},
+									{
+										"key": "Cache-Control",
+										"name": "Cache-Control",
+										"value": "no-cache"
+									},
+									{
+										"key": "Postman-Token",
+										"name": "Postman-Token",
+										"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ItineraryId\": \"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\n    \"SessionId\": \"222a65d8-6a77-40c0-b29a-343e40339b7c\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:35370/api/v1/cart/air/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "35370",
+									"path": [
+										"api",
+										"v1",
+										"cart",
+										"air",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "2501",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 03 Mar 2016 21:21:10 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET",
+									"name": "X-Powered-By",
+									"description": ""
+								},
+								{
+									"key": "X-SourceFiles",
+									"value": "=?UTF-8?B?QzpcZGV2ZWxvcG1lbnRcdGhvbWFsZXhccmVzdm95YWdlXFJlc3ZveWFnZS5SRVNUX0FQSVxhcGlcdjFcY2FydFxhaXJcYWRk?=",
+									"name": "X-SourceFiles",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"SessionId\":\"222a65d8-6a77-40c0-b29a-343e40339b7c\",\"ShoppingCart\":{\"Air\":{\"AirItinerary\":{\"DirectionInd\":\"Circle\",\"OriginDestinationOptions\":[{\"SectorSequence\":1,\"FlightSegments\":[{\"RouteNumber\":\"DL1994\",\"FlightNumber\":\"1994\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"02:55:00\",\"DepartureDate\":\"2016-04-12T17:20:00\",\"ArrivalDate\":\"2016-04-12T20:15:00\",\"DepartureAirport\":\"MIA\",\"ArrivalAirport\":\"JFK\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"New York-John F Kennedy, NY, United States\",\"DepartureAirportName\":\"Miami-Miami Intl, FL, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"02:55:00\"},{\"SectorSequence\":2,\"FlightSegments\":[{\"RouteNumber\":\"DL2313\",\"FlightNumber\":\"2313\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"03:20:00\",\"DepartureDate\":\"2016-04-22T15:00:00\",\"ArrivalDate\":\"2016-04-22T18:20:00\",\"DepartureAirport\":\"JFK\",\"ArrivalAirport\":\"MIA\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"Miami-Miami Intl, FL, United States\",\"DepartureAirportName\":\"New York-John F Kennedy, NY, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"03:20:00\"}]},\"AirItineraryPricingInfo\":{\"TotalPrice\":284.20,\"BasePrice\":141.63,\"Tax\":42.57,\"Markup\":0.0,\"ServiceFee\":100.00,\"Discount\":0.0,\"CurrencyCode\":\"USD\",\"PTC_FareBreakdowns\":[{\"BasePriceFromItinerary\":191.63,\"BasePrice\":141.63,\"Markup\":0.0,\"Discount\":0.0,\"ServiceFee\":100.00,\"Tax\":42.57,\"TotalPrice\":284.20,\"PassengerCount\":1,\"PassengerType\":\"ADT\"}],\"PricingSource\":null,\"IsNegotiatedPrice\":false},\"Id\":\"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\"PolicyType\":null},\"Passengers\":[{\"IndexInSequence\":0,\"Title\":null,\"TypeCode\":\"ADT\",\"FirstName\":null,\"MiddleName\":null,\"LastName\":null,\"Email\":null,\"CountryCode\":null,\"Phone\":null,\"PhoneCode\":null,\"SkypeID\":null,\"LoyalityProgram\":null,\"MealsNSeatReq\":null,\"Gender\":null,\"DateOfBirthString\":null,\"PaymentInfoObject\":null,\"BaggagePiecesQty\":0,\"Gen\":null,\"UserRole\":null,\"Id\":0}],\"NeedJustification\":false,\"PersonalCreditCards\":null,\"AvailablePaymentOptions\":[{\"TravelType\":\"AIR\",\"PaymentOptions\":[\"CallMe\",\"CorpCreditCard\",\"ProfileCardType\",\"B2BInvoiceCorporation\"]}]}}"
+						},
+						{
+							"name": "air_cart_item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNyc2Etc2hhMjU2IiwidHlwIjoiSldUIn0.eyJuYmYiOjE0NTQ1OTU1MTksImV4cCI6MTQ1NDU5NzMxOSwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IlRob21hbGV4IEIyQyIsIkNsaWVudElkIjoiODEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCMkMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjE2OTQ0IiwiYXVkIjoicmVzdm95YWdlIn0.mAF_7HxDQNBSGV8Y_6b_S0ysHqZGM4ppt9OKlvli9TezzzPbgBrfuJw_tKbecan8LTw0hIkO6G4miCJV9E3WtU4LENL1yazimA3BuX2vhpz8xmfNyQ7Xkuh0M-cklBJGZUyQQP9UGW3vrdjg3BzgJ2ORY7wSnFIyEO9vwEALv-tFiUXJM9YUoC0Q6RSGK92UFgWTYRS4Q54L1clBLqcZ_nyc1HQvGLbH3OSp8fBpeaHNlNQisr5LIqhmSH8Iq7zOX16VNL57zct7qzEELiyZZGRste6-8aUfvJxtcruewgD4BXiauDF8p8pPLEfhwG-QVU935mEGveLS3xHMbqluwQ",
+										"name": "Authorization"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"name": "Content-Type"
+									},
+									{
+										"key": "Cache-Control",
+										"name": "Cache-Control",
+										"value": "no-cache"
+									},
+									{
+										"key": "Postman-Token",
+										"name": "Postman-Token",
+										"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ItineraryId\": \"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\n    \"SessionId\": \"222a65d8-6a77-40c0-b29a-343e40339b7c\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:35370/api/v1/cart/air/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "35370",
+									"path": [
+										"api",
+										"v1",
+										"cart",
+										"air",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "javascript",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true",
+									"name": "Access-Control-Allow-Credentials",
+									"description": ""
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+									"name": "Access-Control-Allow-Origin",
+									"description": ""
+								},
+								{
+									"key": "Content-Length",
+									"value": "2501",
+									"name": "Content-Length",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": ""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 03 Mar 2016 21:21:10 GMT",
+									"name": "Date",
+									"description": ""
+								},
+								{
+									"key": "Server",
+									"value": "Microsoft-IIS/10.0",
+									"name": "Server",
+									"description": ""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET",
+									"name": "X-Powered-By",
+									"description": ""
+								},
+								{
+									"key": "X-SourceFiles",
+									"value": "=?UTF-8?B?QzpcZGV2ZWxvcG1lbnRcdGhvbWFsZXhccmVzdm95YWdlXFJlc3ZveWFnZS5SRVNUX0FQSVxhcGlcdjFcY2FydFxhaXJcYWRk?=",
+									"name": "X-SourceFiles",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\"SessionId\":\"222a65d8-6a77-40c0-b29a-343e40339b7c\",\"ShoppingCart\":{\"Air\":{\"AirItinerary\":{\"DirectionInd\":\"Circle\",\"OriginDestinationOptions\":[{\"SectorSequence\":1,\"FlightSegments\":[{\"RouteNumber\":\"DL1994\",\"FlightNumber\":\"1994\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"02:55:00\",\"DepartureDate\":\"2016-04-12T17:20:00\",\"ArrivalDate\":\"2016-04-12T20:15:00\",\"DepartureAirport\":\"MIA\",\"ArrivalAirport\":\"JFK\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"New York-John F Kennedy, NY, United States\",\"DepartureAirportName\":\"Miami-Miami Intl, FL, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"02:55:00\"},{\"SectorSequence\":2,\"FlightSegments\":[{\"RouteNumber\":\"DL2313\",\"FlightNumber\":\"2313\",\"MarketingAirlineCode\":\"DL\",\"MarketingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineName\":\"Delta Air Lines\",\"OperatingAirlineCode\":\"DL\",\"Duration\":\"03:20:00\",\"DepartureDate\":\"2016-04-22T15:00:00\",\"ArrivalDate\":\"2016-04-22T18:20:00\",\"DepartureAirport\":\"JFK\",\"ArrivalAirport\":\"MIA\",\"Aircraft\":\"MC DONNELL DOUGLAS MD-88 JET\",\"BookingClass\":\"T\",\"ArrivalAirportName\":\"Miami-Miami Intl, FL, United States\",\"DepartureAirportName\":\"New York-John F Kennedy, NY, United States\",\"BaggageFeeUrl\":\"https://bags.amadeus.com/Display.aspx?a=DL\"}],\"Cabin\":\"Economy\",\"JourneyTotalDuration\":\"03:20:00\"}]},\"AirItineraryPricingInfo\":{\"TotalPrice\":284.20,\"BasePrice\":141.63,\"Tax\":42.57,\"Markup\":0.0,\"ServiceFee\":100.00,\"Discount\":0.0,\"CurrencyCode\":\"USD\",\"PTC_FareBreakdowns\":[{\"BasePriceFromItinerary\":191.63,\"BasePrice\":141.63,\"Markup\":0.0,\"Discount\":0.0,\"ServiceFee\":100.00,\"Tax\":42.57,\"TotalPrice\":284.20,\"PassengerCount\":1,\"PassengerType\":\"ADT\"}],\"PricingSource\":null,\"IsNegotiatedPrice\":false},\"Id\":\"28420-20160412T1720-DL-1994-20160422T1500-DL-2313\",\"PolicyType\":null},\"Passengers\":[{\"IndexInSequence\":0,\"Title\":null,\"TypeCode\":\"ADT\",\"FirstName\":null,\"MiddleName\":null,\"LastName\":null,\"Email\":null,\"CountryCode\":null,\"Phone\":null,\"PhoneCode\":null,\"SkypeID\":null,\"LoyalityProgram\":null,\"MealsNSeatReq\":null,\"Gender\":null,\"DateOfBirthString\":null,\"PaymentInfoObject\":null,\"BaggagePiecesQty\":0,\"Gen\":null,\"UserRole\":null,\"Id\":0}],\"NeedJustification\":false,\"PersonalCreditCards\":null,\"AvailablePaymentOptions\":[{\"TravelType\":\"AIR\",\"PaymentOptions\":[\"CallMe\",\"CorpCreditCard\",\"ProfileCardType\",\"B2BInvoiceCorporation\"]}]}}"
+						}
+					]
+				},
+				{
+					"name": "3.1 - Apply promotionalDiscount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/promotionaldiscount/?sessionId=2c19a282-cb5d-4147-bca0-48688f91ada2&promocode=12345",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"promotionaldiscount",
+								""
+							],
+							"query": [
+								{
+									"key": "sessionId",
+									"value": "2c19a282-cb5d-4147-bca0-48688f91ada2"
+								},
+								{
+									"key": "promocode",
+									"value": "12345"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 - Remove promotionalDiscount copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "d23054d8-6771-38b3-d42d-28ef50a84c40"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/promotionaldiscount/remove/?sessionId=ab7a3249-8082-44a1-af7b-49ef853c6ac8",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"promotionaldiscount",
+								"remove",
+								""
+							],
+							"query": [
+								{
+									"key": "sessionId",
+									"value": "ab7a3249-8082-44a1-af7b-49ef853c6ac8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Car Module",
+			"item": [
+				{
+					"name": "Car Search",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/car/search?pickupcity=MIA&pickupdate=2016-07-12&dropoffdate=2016-07-15",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"car",
+								"search"
+							],
+							"query": [
+								{
+									"key": "pickupcity",
+									"value": "MIA"
+								},
+								{
+									"key": "pickupdate",
+									"value": "2016-07-12"
+								},
+								{
+									"key": "dropoffdate",
+									"value": "2016-07-15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddCarToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SessionId\": \"7aaea857-b33b-46e1-8482-fdf1d2b84403\",\n    \"ItemId\": \"69b4db35-bafe-48e8-8816-7c5c1f11cf59\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/car/add",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"car",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Car Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/car/details?sessionid=e15a1d6b-4767-429c-85d7-4836d9c5c5b5&carid=56f237e6-f11b-4ef9-ac0c-ecab0325c7b9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"car",
+								"details"
+							],
+							"query": [
+								{
+									"key": "sessionid",
+									"value": "e15a1d6b-4767-429c-85d7-4836d9c5c5b5"
+								},
+								{
+									"key": "carid",
+									"value": "56f237e6-f11b-4ef9-ac0c-ecab0325c7b9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Car vendor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/car/references/carvendors/av",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"car",
+								"references",
+								"carvendors",
+								"av"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. Hotel Module",
+			"item": [
+				{
+					"name": "1 - Public Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.Token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/public/token?clientname=35oV8ClvCh7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"token"
+							],
+							"query": [
+								{
+									"key": "clientname",
+									"value": "35oV8ClvCh7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Destination Search",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/hotel/references/destination/mia",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"hotel",
+								"references",
+								"destination",
+								"mia"
+							]
+						},
+						"description": "This reqeuest is used for searching the hotel destination.\n\nIn case we have geolocation enabled, result will return not only cities with IATA code but also other destinations which are available through GoogleAPI.\n\nIf in results you have the \"PlaceId\" value, please use that value instead of \"Code\""
+					},
+					"response": []
+				},
+				{
+					"name": "3 - HotelSearch",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/hotel/search?HotelCityCode&CheckInDate=2019-06-29&CheckoutDate=2019-07-02&Adults=1&RoomCount=1&PlaceId=ChIJEcHIDqKw2YgRZU-t3XHylv8",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"hotel",
+								"search"
+							],
+							"query": [
+								{
+									"key": "HotelCityCode",
+									"value": ""
+								},
+								{
+									"key": "CheckInDate",
+									"value": "2019-06-29"
+								},
+								{
+									"key": "CheckoutDate",
+									"value": "2019-07-02"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "RoomCount",
+									"value": "1"
+								},
+								{
+									"key": "PlaceId",
+									"value": "ChIJEcHIDqKw2YgRZU-t3XHylv8"
+								}
+							]
+						},
+						"description": "This request is responsible for getting back the Hotel data.\n\nIn case that from previous \"Destination Search\" you had the \"PlaceId\" value, please pass that value otherwise pass the \"HotelCityCode\" value."
+					},
+					"response": []
+				},
+				{
+					"name": "4 - HotelDetails",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/hotel/details?SessionId=a438ba5c-b103-4246-8534-cca10b06c026&HotelId=0832b3c6-dc9e-44bb-8bb5-d0f149ca61a5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"hotel",
+								"details"
+							],
+							"query": [
+								{
+									"key": "SessionId",
+									"value": "a438ba5c-b103-4246-8534-cca10b06c026"
+								},
+								{
+									"key": "HotelId",
+									"value": "0832b3c6-dc9e-44bb-8bb5-d0f149ca61a5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5 - Add Hotel to ShoppingCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SessionId\": \"99e96a08-d8be-47e6-9c29-73bbeab3a783\",\n    \"Adults\": 1,\n    \"RoomId\": \"bb4723a2-7961-4b11-b80e-16455c0aa9cf\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/hotel/add",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"hotel",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6 - Confirm Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SessionId\": \"99e96a08-d8be-47e6-9c29-73bbeab3a783\",\n    \"Travellers\": [\n    {\n      \"IndexInSequence\": 0,\n      \"Title\": \"Mr\",\n      \"TypeCode\": \"ADT\",\n      \"FirstName\": \"Zoran\",\n      \"MiddleName\": \"Vukan Mila\",\n      \"LastName\": \"Protic\",\n      \"Email\": \"zoranpro@gmail.com\",\n      \"CountryCode\": null,\n      \"Phone\": \"123121231\",\n      \"PhoneCode\": null,\n      \"Gender\": true,\n      \"DateOfBirthString\": \"1982-04-04T09:42:53.998Z\",\n      \"CountryOfNationality\": \"RS\"\n    }\n  ],\n    \"PaymentDetails\": [{\n        \"TravelType\": \"HOTEL\",\n        \"PaymentOption\":\"CreditCard\",\n        \"Address\":{\n            \"CountryCode\":\"US\",\n            \"CountryName\":\"USA\",\n            \"State\": \"Maryland\",\n            \"RegionName\":\"Maryland\",\n            \"ZIP\":\"12345\",\n            \"CityName\":\"Miami\",\n            \"StreetAddress\":\"Zarka Pucara\"\n        },\n        \"CardInfo\":{\n            \"CardholderName\":\"Name On Card\",\n            \"CardType\":\"VI\",\n            \"CardTypeCode\":\"VI\",\n            \"CardNumber\":\"4111111111111111\",\n            \"ExpirationMonth\":\"11\",\n            \"ExpirationYear\":\"2019\",\n            \"CVV\":\"123\",\n            \"BankName\":null,\n            \"BankPhone\":\"+93123123\"\n        }\n    }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/book",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Hotel Chain",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/hotel/references/hotelchain/hi",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"hotel",
+								"references",
+								"hotelchain",
+								"hi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hotel Rate Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SessionId\": \"06fb0498-1fca-4515-9509-ae38e0a070cb\",\n    \"ChainCode\": \"LQ\",\n    \"HotelCode\": \"667\",\n    \"HotelCityCode\": \"MIA\",\n    \"HotelCodeContext\": \"1A\",\n    \"Adults\": 1,\n    \"CheckInDate\": \"2016-06-29\",\n    \"CheckOutDate\": \"2016-07-02\",\n    \"Room\": {\n        \"RatePlanCode\": \"RAC\",\n        \"BookingCode\": \"\",\n        \"GuaranteeType\": \"Deposit\",\n        \"RoomTypeCode\": \"C1K\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/hotel/rate/details",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"hotel",
+								"rate",
+								"details"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6. Booking Operations",
+			"item": [
+				{
+					"name": "Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"SessionId\": \"1537e3ed-75f9-4b84-b5e7-67235072d108\",\n    \"NotesForAgent\": \"\",\n    \"Travellers\": [\n    {\n      \"Id\": \"8b455fe1-e9b2-4207-84f2-ec60db12ae3f\",\n      \"IndexInSequence\": 0,\n      \"Title\": \"Mr\",\n      \"TypeCode\": \"ADT\",\n      \"FirstName\": \"Zoran\",\n      \"MiddleName\": null,\n      \"LastName\": \"Protic\",\n      \"Email\": \"zoranpro@gmail.com\",\n      \"CountryCode\": null,\n      \"Phone\": \"123121231\",\n      \"PhoneCode\": null,\n      \"SkypeID\": null,\n      \"LoyalityProgram\": null,\n      \"MealsNSeatReq\": null,\n      \"Gender\": null,\n      \"DateOfBirthString\": \"1982-04-04T09:42:53.998Z\",\n      \"PaymentInfoObject\": null,\n      \"BaggagePiecesQty\": 0,\n      \"Gen\": null,\n      \"UserRole\": null,\n      \"EmployeeId\": 0\n    }\n  ],\n    \"PaymentDetails\": [{\n        \"TravelType\": \"CAR\",\n        \"CorporateCreditCard\":false,\n        \"PaymentOption\":\"CreditCard\",\n        \"Address\":{\n            \"CountryCode\":\"RS\",\n            \"CountryName\":\"Serbia\",\n            \"RegionName\":\"Sumadija\",\n            \"ZIP\":\"12345\",\n            \"CityName\":\"Beograd\",\n            \"StreetAddress\":\"Zarka Pucara\"\n        },\n        \"CardInfo\":{\n            \"CardholderName\":\"Name On Card\",\n            \"CardType\":\"VI\",\n            \"CardTypeCode\":\"VI\",\n            \"CardNumber\":\"4111111111111111\",\n            \"ExpirationMonth\":\"1\",\n            \"ExpirationYear\":\"2018\",\n            \"CVV\":\"123\",\n            \"BankName\":\"Bank name\",\n            \"BankPhone\":\"+93123123\"\n        }\n    },\n    {\n        \"TravelType\": \"HOTEL\",\n        \"CorporateCreditCard\":false,\n        \"PaymentOption\":\"CreditCard\",\n        \"Address\":{\n            \"CountryCode\":\"RS\",\n            \"CountryName\":\"Serbia\",\n            \"RegionName\":\"Sumadija\",\n            \"ZIP\":\"12345\",\n            \"CityName\":\"Beograd\",\n            \"StreetAddress\":\"Zarka Pucara\"\n        },\n        \"CardInfo\":{\n            \"CardholderName\":\"Name On Card\",\n            \"CardType\":\"VI\",\n            \"CardTypeCode\":\"VI\",\n            \"CardNumber\":\"4111111111111111\",\n            \"ExpirationMonth\":\"1\",\n            \"ExpirationYear\":\"2018\",\n            \"CVV\":\"123\",\n            \"BankName\":\"Bank name\",\n            \"BankPhone\":\"+93123123\"\n        }\n    }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/book",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShoppingCart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/cart?sessionId=c4b51e12-d4b8-4e9f-80b9-10413c7f62f7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart"
+							],
+							"query": [
+								{
+									"key": "sessionId",
+									"value": "c4b51e12-d4b8-4e9f-80b9-10413c7f62f7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveSeatMap",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n      \"Id\": \"c29b26dd-39c4-4170-82fc-c526d433c851\",\n      \"IndexInSequence\": 0,\n      \"Title\": null,\n      \"TypeCode\": \"ADT\",\n      \"FirstName\": \"Passenger 1\",\n      \"MiddleName\": null,\n      \"LastName\": null,\n      \"Email\": null,\n      \"CountryCode\": null,\n      \"Phone\": null,\n      \"PhoneCode\": null,\n      \"SkypeID\": null,\n      \"EmployeeUsername\": null,\n      \"LoyalityProgram\": null,\n      \"MealsNSeatReq\": null,\n      \"Gender\": null,\n      \"DateOfBirthString\": null,\n      \"FlightsSeatMap\": null,\n      \"PaymentInfoObject\": null,\n      \"BaggagePiecesQty\": 0,\n      \"UserRole\": null,\n      \"EmployeeId\": 0,\n      \"FlightsSeatMap\": [{\n          \"FlightNumber\": \"0407\",\n          \"SeatNumber\": \"B10\"\n      },\n      {\n          \"FlightNumber\": \"0407\",\n          \"SeatNumber\": \"C10\"\n      }\n      ]\n    }]"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/cart/seatmap/save?sessionId=12ef88b9-ecc1-420c-922b-1afe162fe4c1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cart",
+								"seatmap",
+								"save"
+							],
+							"query": [
+								{
+									"key": "sessionId",
+									"value": "12ef88b9-ecc1-420c-922b-1afe162fe4c1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelPnr",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/pnr/OCTGLX/cancel",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pnr",
+								"OCTGLX",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InsertRemarkToPnr",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Remarks\": [\"Remark 1\"]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/pnr/OCTGLX/remark/insert",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pnr",
+								"OCTGLX",
+								"remark",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeRemarkToPnr",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"CurrentRemark\": \"Remark 2\",\n\t\"NewRemark\": \"R1\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/pnr/OCTGLX/remark/change",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pnr",
+								"OCTGLX",
+								"remark",
+								"change"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadPnr",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/pnr/OCTGLX/read",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pnr",
+								"OCTGLX",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MovePnrToSpecificQueue",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/pnr/OCTGLX/queue/Normal/move",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"pnr",
+								"OCTGLX",
+								"queue",
+								"Normal",
+								"move"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "7. Engine Settings",
+			"item": [
+				{
+					"name": "B2B TG Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/engine/b2b/settings",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"engine",
+								"b2b",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "B2C Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/engine/b2c/settings",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"engine",
+								"b2c",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bulk Search",
+			"item": [
+				{
+					"name": "1 - Public Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.Token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/public/token?clientname=CheapFareMart.com",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"token"
+							],
+							"query": [
+								{
+									"key": "clientname",
+									"value": "CheapFareMart.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Search - Air",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "application/gzip"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/v1/air/search?from1=NYC&to1=BKK&DepartureDate1=2018-05-17&from2=BKK&to2=NYC&DepartureDate2=2018-05-29&Adults=1&meta=momondo&DeepLinkBaseUrl=http://flights.cheapfaremart.com",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"air",
+								"search"
+							],
+							"query": [
+								{
+									"key": "from1",
+									"value": "NYC"
+								},
+								{
+									"key": "to1",
+									"value": "BKK"
+								},
+								{
+									"key": "DepartureDate1",
+									"value": "2018-05-17"
+								},
+								{
+									"key": "from2",
+									"value": "BKK"
+								},
+								{
+									"key": "to2",
+									"value": "NYC"
+								},
+								{
+									"key": "DepartureDate2",
+									"value": "2018-05-29"
+								},
+								{
+									"key": "Adults",
+									"value": "1"
+								},
+								{
+									"key": "meta",
+									"value": "momondo"
+								},
+								{
+									"key": "DeepLinkBaseUrl",
+									"value": "http://flights.cheapfaremart.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
